@@ -19,9 +19,7 @@ let project = Project(
             ),
             sources: ["apollo-crash-test/Sources/**"],
             resources: ["apollo-crash-test/Resources/**"],
-            dependencies: [
-              .external(name: "Apollo"),
-            ]
+            dependencies: []
         ),
         .target(
             name: "apollo-crash-testTests",
