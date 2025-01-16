@@ -1,5 +1,4 @@
 import SwiftUI
-import ApolloAPI
 import Apollo
 
 protocol SelectionSet {
@@ -11,23 +10,23 @@ struct DataDict {
   let _data: [String: Any]
 }
 
-enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
-  public static func cacheKeyInfo(for type: ApolloAPI.Object, object: ObjectData) -> CacheKeyInfo? {
+enum SchemaConfiguration: Apollo.SchemaConfiguration {
+  public static func cacheKeyInfo(for type: Apollo.Object, object: ObjectData) -> CacheKeyInfo? {
     // Implement this function to configure cache key resolution for your schema types.
     return nil
   }
 }
 
-enum SchemaMetadata: ApolloAPI.SchemaMetadata {
-  static var configuration: any ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
+enum SchemaMetadata: Apollo.SchemaMetadata {
+  static var configuration: any Apollo.SchemaConfiguration.Type = SchemaConfiguration.self
 
-  static func objectType(forTypename typename: String) -> ApolloAPI.Object? {
+  static func objectType(forTypename typename: String) -> Apollo.Object? {
     return nil
   }
 }
 
 class Objects {
-  static let Query = ApolloAPI.Object(
+  static let Query = Apollo.Object(
     typename: "Query",
     implementedInterfaces: []
   )
@@ -35,24 +34,24 @@ class Objects {
 
 class GenericQuery: GraphQLQuery {
   public static let operationName: String = "AvailablePromptsQuery"
-  public static let operationDocument: ApolloAPI.OperationDocument = .init(
+  public static let operationDocument: Apollo.OperationDocument = .init(
     definition: .init(
       #"query AvailablePromptsQuery { catchupModule { __typename availablePrompts } }"#
     ))
 
   public init() {}
 
-  public struct Data: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet {
+  public struct Data: Apollo.SelectionSet & Apollo.RootSelectionSet {
     public typealias Schema = SchemaMetadata
 
-    public var __data: ApolloAPI.DataDict
+    public var __data: Apollo.DataDict
 
-    public init(_dataDict: ApolloAPI.DataDict) {
+    public init(_dataDict: Apollo.DataDict) {
       __data = _dataDict
     }
 
-    public static var __parentType: any ApolloAPI.ParentType { Objects.Query }
-    public static var __selections: [ApolloAPI.Selection] { [] }
+    public static var __parentType: any Apollo.ParentType { Objects.Query }
+    public static var __selections: [Apollo.Selection] { [] }
   }
 }
 
